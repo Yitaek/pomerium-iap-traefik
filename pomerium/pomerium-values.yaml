@@ -1,0 +1,28 @@
+authenticate:
+  idp:
+    provider: "google"
+    clientID: "<CLIENT_ID>.apps.googleusercontent.com"
+    clientSecret: "<CLIENT_SECRET>"
+
+config:
+  sharedSecret: lF7kITFeB16jZ9PQDr67hrEXWWmwQDYKIUVqVnMlFR0=
+  cookieSecret: Ky9Xv3OqWr/jjMUDE8VbQEDeKZgfLcB/pBwy9ryuzn8=
+  rootDomain: mydomain.example.com
+  generateTLS: false
+  insecure: true
+
+  policy:
+    # this route is directly proxied by pomerium & injects the authorization header
+    - from: https://k8s-dashboard.mydomain.example.com
+      to: https://kubernetes-dashboard.kubernetes-dashboard
+      allowed_domains:
+        - example.com
+      tls_skip_verify: true # dashboard uses self-signed certificates in its default configuration
+      set_request_headers:
+        Authorization: "Bearer <EKS-admin-token>"
+ingress:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
+  secretName: mydomain-cert

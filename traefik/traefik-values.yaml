@@ -1,0 +1,17 @@
+additionalArguments:
+  - "--accesslog=true"
+  - "--accesslog.format=json"
+  - "--log.level=INFO"
+  - "--metrics.prometheus=true"
+  - "--metrics.prometheus.entryPoint=metrics"
+  - "--entryPoints.metrics.address=:8082"
+
+deployment:
+  replicas: 3
+  podAnnotations: 
+    prometheus.io/port: '8082'
+    prometheus.io/scrape: 'true'
+
+service:
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: nlb
