@@ -5,8 +5,8 @@ authenticate:
     clientSecret: "<CLIENT_SECRET>"
 
 config:
-  sharedSecret: lF7kITFeB16jZ9PQDr67hrEXWWmwQDYKIUVqVnMlFR0=
-  cookieSecret: Ky9Xv3OqWr/jjMUDE8VbQEDeKZgfLcB/pBwy9ryuzn8=
+  sharedSecret: random-secret
+  cookieSecret: super-secret
   rootDomain: mydomain.example.com
   generateTLS: false
   insecure: true
@@ -25,4 +25,4 @@ ingress:
     cert-manager.io/cluster-issuer: letsencrypt-prod
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
     traefik.ingress.kubernetes.io/router.tls: "true"
-  secretName: mydomain-cert
+  secretName: wildcard-cert
